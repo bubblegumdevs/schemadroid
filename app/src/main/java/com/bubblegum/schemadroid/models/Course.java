@@ -1,16 +1,15 @@
-package com.bubblegum.schemadroid.models.v1;
+package com.bubblegum.schemadroid.models;
 
-import com.bubblegum.schemadroid.annotations.AutoInc;
 import com.bubblegum.schemadroid.annotations.ColumnName;
+import com.bubblegum.schemadroid.annotations.NotNull;
 import com.bubblegum.schemadroid.annotations.PrimaryKey;
 import com.bubblegum.schemadroid.annotations.TableName;
 import com.bubblegum.schemadroid.model.Tabbable;
 
-@TableName(Tables.TABLE_STUDENT)
-public class Student implements Tabbable {
+@TableName(TableNames.TABLE_COURSE)
+public class Course implements Tabbable {
 
-    @PrimaryKey @AutoInc
+    @PrimaryKey @NotNull
     @ColumnName("_id") private long id;
     @ColumnName("name") private String name;
-    @ColumnName("gender") private String gender;
 }

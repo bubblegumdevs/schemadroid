@@ -1,4 +1,4 @@
-package com.bubblegum.schemadroid.models.v1;
+package com.bubblegum.schemadroid.models;
 
 import com.bubblegum.schemadroid.annotations.ColumnName;
 import com.bubblegum.schemadroid.annotations.ForeignKey;

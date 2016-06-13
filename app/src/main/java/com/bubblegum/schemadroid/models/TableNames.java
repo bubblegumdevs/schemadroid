@@ -1,6 +1,6 @@
-package com.bubblegum.schemadroid.models.v1;
+package com.bubblegum.schemadroid.models;
 
-public class Tables {
+public class TableNames {
 
     public static final String TABLE_STUDENT = "student";
     public static final String TABLE_COURSE = "course";

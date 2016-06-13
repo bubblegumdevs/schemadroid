@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.bubblegum.schemadroid.migrations.Migrator;
-import com.bubblegum.schemadroid.migrations.Version;
+import com.bubblegum.schemadroid.model.Tabbable;
 
 import java.util.List;
 
@@ -21,29 +21,21 @@ public abstract class SchemaDroidOpenHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public final void onCreate(SQLiteDatabase db) {
-        Version firstVersion = getFirstVersion();
-        Migrator.createVersion(db, firstVersion);
-        if(getCurrentVersionCode() != firstVersion.getVersionCode()) {
-            Migrator.migrate(db, firstVersion.getVersionCode(), getCurrentVersionCode(), getVersions());
+    public void onCreate(SQLiteDatabase db) {
+        Migrator.createVersion(db, getTables());
+        if(getCurrentVersionCode() != getFirstVersionCode()) {
+            Migrator.migrate(db, getFirstVersionCode(), getCurrentVersionCode(), getTables());
         }
     }
 
     @Override
-    public final void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Migrator.migrate(db, oldVersion, newVersion, getVersions());
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Migrator.migrate(db, oldVersion, newVersion, getTables());
     }
 
-    protected abstract List<Version> getVersions();
+    protected abstract List<Class<? extends Tabbable>> getTables();
 
     protected abstract int getCurrentVersionCode();
 
-    private Version getFirstVersion() {
-        List<Version> versions = getVersions();
-        if(versions.size() > 0) {
-            return versions.get(0);
-        } else {
-            throw new IllegalArgumentException("There needs to be at least one version.");
-        }
-    }
+    protected abstract int getFirstVersionCode();
 }
